@@ -5,6 +5,7 @@ import Sidebar from './components/Sidebar';
 import Home from './components/Home';
 import Dashboard from './components/Dashboard';
 import InvoiceForm from './components/invoice/InvoiceForm';
+import SignIn from './components/signin/SignIn';
 
 
 function App() {
@@ -15,11 +16,12 @@ function App() {
         <div className="flex-1">
           <Header />
           <Routes>
-            <Route path='/' exact element={<Home/>} />
-            <Route path='/dashboard' element={<Dashboard/>} />
+          <Route path='/' element={<SignIn/>} />
+            {/* <Route path='/home' exact element={<Home/>} /> */}
             <Route path='/dashboard' element={<Dashboard/>} />
             {/* Add more routes */}
             <Route path='/invoice' element={<InvoiceForm/>} />
+            
           </Routes>
         </div>
       </BrowserRouter>

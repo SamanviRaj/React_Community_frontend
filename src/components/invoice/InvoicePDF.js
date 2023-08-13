@@ -33,10 +33,14 @@ const InvoicePDF = ({ invoiceData }) => {
                         </View>
                     ))}
                     <View style={styles.tableRow}>
+                        <Text style={styles.expenseCell}>Discount</Text>
+                        <Text style={styles.expenseCell}>₹ {parseFloat(invoiceData.discountAmount).toFixed(2)}</Text>
+                    </View>
+                    <View style={styles.tableRow}>
                         <Text style={styles.totalCell}>Total Amount</Text>
                         <Text style={styles.totalCell}>₹ {parseFloat(invoiceData.totalAmount).toFixed(2)}</Text>
                     </View>
-                </View>
+                </View>     
 
                   {/* Recipient Signature */}
                   <View style={styles.signatureContainer}>
@@ -174,6 +178,19 @@ const styles = StyleSheet.create({
     },
     footerText: {
         fontSize: 8, // Adjust the font size here
+    },
+    expenseCell: {
+        flex: 1,
+        textAlign: 'center',
+        padding: '5pt',
+        fontSize: 10, // Adjust the font size here
+    },
+    totalCell: {
+        fontWeight: 'bold',
+        flex: 1,
+        textAlign: 'center',
+        padding: '5pt',
+        fontSize: 10,
     },
 });
 
