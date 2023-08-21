@@ -6,7 +6,9 @@ import Home from './components/Home';
 import Dashboard from './components/Dashboard';
 import InvoiceForm from './components/invoice/InvoiceForm';
 import SignIn from './components/signin/SignIn';
+import SignUp from './components/signin/SignUp';
 
+const useMicroserviceA = true;
 
 function App() {
   return (
@@ -16,12 +18,12 @@ function App() {
         <div className="flex-1">
           <Header />
           <Routes>
-          <Route path='/' element={<SignIn/>} />
+          <Route path='/' element={<SignIn useMicroserviceA={useMicroserviceA}/>} />
             {/* <Route path='/home' exact element={<Home/>} /> */}
             <Route path='/dashboard' element={<Dashboard/>} />
             {/* Add more routes */}
             <Route path='/invoice' element={<InvoiceForm/>} />
-            
+            <Route path='/signup' element={<SignUp useMicroserviceA={useMicroserviceA}/>} />
           </Routes>
         </div>
       </BrowserRouter>
