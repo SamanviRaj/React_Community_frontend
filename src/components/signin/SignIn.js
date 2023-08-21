@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import createApiClient from '../apiclient/apiClient';
 
 const SignIn = ({ useMicroserviceA, setUserSignedIn }) => {
@@ -7,8 +7,8 @@ const SignIn = ({ useMicroserviceA, setUserSignedIn }) => {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  console.log("useMicroserviceA ... "+useMicroserviceA);
-  console.log("setUserSignedIn ... "+setUserSignedIn);
+  console.log("useMicroserviceA ... " + useMicroserviceA);
+  console.log("setUserSignedIn ... " + setUserSignedIn);
 
   const baseUrl = useMicroserviceA ? 'http://localhost:9012' : 'http://localhost:9014';
   const apiClient = createApiClient(baseUrl);
@@ -72,9 +72,12 @@ const SignIn = ({ useMicroserviceA, setUserSignedIn }) => {
           >
             Sign In
           </button>
-          <a href="/signup" className="text-blue-500 hover:underline">
+          <Link
+            to={{ pathname: "/signup", search: "?useMicroserviceA=true" }} // Pass the query parameter
+            className="text-blue-500 hover:underline"
+          >
             Sign Up
-          </a>
+          </Link>
         </div>
       </form>
     </div>

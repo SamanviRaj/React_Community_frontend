@@ -17,7 +17,7 @@ function App() {
       <BrowserRouter>
         {userSignedIn && <Sidebar />} {/* Show Sidebar only if user is signed in */}
         <div className="flex-1">
-          <Header />
+          {userSignedIn && <Header />} {/* Show Header only if user is signed in */}
           <Routes>
             {/* Display Home component by default */}
             <Route

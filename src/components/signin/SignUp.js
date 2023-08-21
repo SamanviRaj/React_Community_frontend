@@ -1,8 +1,17 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom'; // Import Link from react-router-dom
+import { Link, useNavigate } from 'react-router-dom';// Import Link from react-router-dom
 import createApiClient from '../apiclient/apiClient'; // Import the modified apiClient creator
+import { useLocation } from 'react-router-dom'; // Import useLocation from react-router-dom
 
-const SignUp = ({ useMicroserviceA }) => {
+
+const SignUp = () => {
+    const navigate = useNavigate();
+
+    const location = useLocation();
+    const queryParams = new URLSearchParams(location.search);
+    const useMicroserviceAParam = queryParams.get('useMicroserviceA');
+
+    const useMicroserviceA = useMicroserviceAParam === 'true'; // Convert to boolean
     const [fullName, setFullName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -24,6 +33,8 @@ const SignUp = ({ useMicroserviceA }) => {
             console.log('Sign-up successful:', response.data);
 
             // Handle successful sign-up here
+           // Navigate to the Home component after successful sign-up
+        navigate('/');
         } catch (error) {
             console.error('Sign-up failed:', error);
             // Handle sign-up error here
