@@ -28,7 +28,8 @@ const SignIn = ({ useMicroserviceA, setUserSignedIn }) => {
       setUserSignedIn(true);
 
       // Redirect to Invoice component using navigate
-      navigate('/invoice');
+     // Redirect to Invoice component using navigate and pass useMicroserviceA as query parameter
+     navigate('/invoice', { state: { useMicroserviceA: true } });
     } catch (error) {
       console.error('Sign-in failed:', error);
       // Handle sign-in error here

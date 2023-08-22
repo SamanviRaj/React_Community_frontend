@@ -3,8 +3,13 @@ import apiClient from '../apiclient/apiClient';
 import { PDFDownloadLink, Document, Page, View, Text } from '@react-pdf/renderer';
 import { pdf } from '@react-pdf/renderer';
 import InvoicePDF from './InvoicePDF';
+import createApiClient from '../apiclient/apiClient';
+import { useLocation } from 'react-router-dom';
 
 const InvoiceForm = () => {
+    const location = useLocation();
+    const [useMicroserviceA, setUseMicroserviceA] = useState(false);
+
     const [invoiceData, setInvoiceData] = useState({
         invoiceNumber: generateInvoiceNumber(),
         clientName: '',
@@ -19,6 +24,15 @@ const InvoiceForm = () => {
         calculateTotalAmount();
     }, [invoiceData.expenses, invoiceData.discountAmount]);
 
+    useEffect(() => {
+        if (location.state && typeof location.state.useMicroserviceA !== 'undefined') {
+          setUseMicroserviceA(location.state.useMicroserviceA);
+        }
+      }, [location.state]);
+
+      
+  const baseUrl = useMicroserviceA ? 'http://localhost:9012' : 'http://localhost:9014';
+  const apiClient = createApiClient(baseUrl);
 
     function generateInvoiceNumber() {
         // Generate a random 4-digit number
