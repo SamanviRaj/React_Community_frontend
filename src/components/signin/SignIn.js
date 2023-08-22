@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import createApiClient from '../apiclient/apiClient';
+import { useAuth } from '../useAuth'; // Import the useAuth hook
 
 const SignIn = ({ useMicroserviceA, setUserSignedIn }) => {
+  const { signIn } = useAuth(); // Use the signIn method from useAuth hook
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
@@ -24,12 +26,15 @@ const SignIn = ({ useMicroserviceA, setUserSignedIn }) => {
 
       console.log('Sign-in successful:', response.data);
 
+         // Call the signIn method to update authentication state
+         signIn();
+         
       // Update sign-in state to trigger dynamic rendering
       setUserSignedIn(true);
 
       // Redirect to Invoice component using navigate
      // Redirect to Invoice component using navigate and pass useMicroserviceA as query parameter
-     navigate('/invoice', { state: { useMicroserviceA: true } });
+     navigate('/invoice', { state: { useMicroserviceA: true,userSignedIn: true } });
     } catch (error) {
       console.error('Sign-in failed:', error);
       // Handle sign-in error here

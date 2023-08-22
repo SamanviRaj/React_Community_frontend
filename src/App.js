@@ -7,42 +7,45 @@ import InvoiceForm from './components/invoice/InvoiceForm';
 import SignIn from './components/signin/SignIn';
 import SignUp from './components/signin/SignUp';
 import Sidebar from './components/Sidebar';
+import { AuthProvider } from './components/useAuth';
 
 function App() {
   const [userSignedIn, setUserSignedIn] = useState(false);
   const useMicroserviceA = true; // Set your desired value here
 
   return (
-    <div className="flex">
+    <AuthProvider>
       <BrowserRouter>
-        {userSignedIn && <Sidebar />} {/* Show Sidebar only if user is signed in */}
-        <div className="flex-1">
-          {userSignedIn && <Header />} {/* Show Header only if user is signed in */}
-          <Routes>
-            {/* Display Home component by default */}
-            <Route
-              path="/"
-              element={<Home setUserSignedIn={setUserSignedIn} useMicroserviceA={useMicroserviceA} />}
-            />
+        <div className="flex">
+          {userSignedIn && <Sidebar />} {/* Show Sidebar only if user is signed in */}
+          <div className="flex-1">
+            <Header /> {/* Show Header regardless of user authentication status */}
+            <Routes>
+              {/* Display Home component by default */}
+              <Route
+                path="/"
+                element={<Home setUserSignedIn={setUserSignedIn} useMicroserviceA={useMicroserviceA} />}
+              />
 
-            {/* Show these routes only if user is signed in */}
-            {userSignedIn && (
-              <>
-                <Route path="/dashboard" element={<Dashboard />} />
-                <Route path="/invoice" element={<InvoiceForm />} />
-              </>
-            )}
+              {/* Show these routes only if user is signed in */}
+              {userSignedIn && (
+                <>
+                  <Route path="/dashboard" element={<Dashboard />} />
+                  <Route path="/invoice" element={<InvoiceForm />} />
+                </>
+              )}
 
-            {/* Other routes */}
-            <Route path="/signup" element={<SignUp />} />
-            <Route
-              path="/signin"
-              element={<SignIn setUserSignedIn={setUserSignedIn} useMicroserviceA={useMicroserviceA} />}
-            />
-          </Routes>
+              {/* Other routes */}
+              <Route path="/signup" element={<SignUp />} />
+              <Route
+                path="/signin"
+                element={<SignIn setUserSignedIn={setUserSignedIn} useMicroserviceA={useMicroserviceA} />}
+              />
+            </Routes>
+          </div>
         </div>
       </BrowserRouter>
-    </div>
+    </AuthProvider>
   );
 }
 
